@@ -1,11 +1,19 @@
 package utils;
 
-import java.util.Comparator;
-
-public class PresenterInfo  implements Comparator<PresenterInfo>
+public class PresenterInfo
 {
 	private String presenterName;
 	private int presntationTime;
+	private int costOfPresentation;
+	
+	public PresenterInfo(){}
+	public PresenterInfo(String presenterName, int hours, int cost)
+	{
+		this.presenterName = presenterName;
+		this.costOfPresentation = cost;
+		this.presntationTime = hours;
+	}
+	
 	public String getPresenterName() {
 		return presenterName;
 	}
@@ -24,19 +32,4 @@ public class PresenterInfo  implements Comparator<PresenterInfo>
 	public void setCostOfPresentation(int costOfPresentation) {
 		this.costOfPresentation = costOfPresentation;
 	}
-	private int costOfPresentation;
-	
-	public PresenterInfo(){}
-	public PresenterInfo(String presenterName, int hours, int cost)
-	{
-		this.presenterName = presenterName;
-		this.costOfPresentation = cost;
-		this.presntationTime = hours;
-	}
-	
-	public int compare(PresenterInfo o1, PresenterInfo o2) 
-	{
-		return o1.getCostOfPresentation() - o2.getCostOfPresentation();
-	}
-	
 }

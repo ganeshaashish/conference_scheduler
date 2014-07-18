@@ -5,22 +5,21 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 public class CSVData 
-{
-	private ArrayList<PresenterInfo> presenter_data = new ArrayList<PresenterInfo>();
-	
+{	
 	public CSVData(){}
-	public CSVData(boolean isRandomTestData)
+	//*** Constructor just for testing the working of program *****
+	private Map<String, PresenterInfo> presenter_data = new HashMap<String, PresenterInfo>();
+	public CSVData(boolean isRandomTestData)	//*** boolean is just a parameter of no use **
 	{
-		System.out.println("Presenter Data Loading: ");
-		System.out.println("-----------------------------");
-		System.out.println("PresenterName\tHours Of Presentation\tPresenter Cost\n");
-		for(int i=0; i<4; i++)
+		System.out.println("--------------- RANDOM TEST DATA --------------");
+		System.out.println("PresenterName\tHours Of Presentation\tPresenter Cost");
+		for(int i=0; i<10; i++)
 		{
-			int hours = (int) ((Math.random() * (2- 1)) + 1);
+			int hours = (int) ((Math.random() * (5 - 1)) + 1);
 			int cost = (int) ((Math.random() * (1000 - 100)) + 100);
 			
 			PresenterInfo pi = new PresenterInfo();
@@ -28,24 +27,23 @@ public class CSVData
 			pi.setPresntationTime(hours);
 			pi.setCostOfPresentation(cost);
 			
-			presenter_data.add(pi);
+			presenter_data.put("P"+(i+1), pi);
 			
 			System.out.print("P"+(i+1));
 			System.out.print("\t\t"+hours);
 			System.out.print("\t\t\t$"+cost);
 			System.out.println();
 		}
-		System.out.println("-----------------------------");
 	}
-	
-	public ArrayList<PresenterInfo> getTestData()
+	public Map<String, PresenterInfo> getTestData()
 	{
 		return presenter_data;
 	}
 	
-	public List<PresenterInfo> readCSV(File file)
+	//*** Reading a CSV file and get the map of entries ****************
+	public Map<String, PresenterInfo> readCSV(File file)
 	{
-		ArrayList<PresenterInfo> csv_data = new ArrayList<PresenterInfo>();
+		Map<String, PresenterInfo> csv_data = new HashMap<String, PresenterInfo>();
 		try 
 		{
 			BufferedReader br = new BufferedReader(new FileReader(file));
@@ -61,7 +59,7 @@ public class CSVData
 					pi.setPresntationTime(Integer.parseInt(splits[1].trim()));
 					pi.setCostOfPresentation(Integer.parseInt(splits[2].trim()));
 					
-					csv_data.add(pi);
+					csv_data.put(splits[0].trim(), pi);
 				}
 				firstLineCounter++;
 			}
